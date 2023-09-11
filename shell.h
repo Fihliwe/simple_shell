@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+extern char **environ;
+
 /* environment functions (enviro.c) */
 char *_getenv(const char *name);
 int _setenv(const char *name, const char *value, int overwrite);
@@ -20,4 +22,4 @@ int _unsetenv(const char *name);
 
 /* function for builtin command (cd - change directory) */
 
-#endif
+#endif/* SHELL_H*/
