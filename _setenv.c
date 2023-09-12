@@ -43,7 +43,7 @@ int _setenv(const char *name, const char *value, int overwrite)
 			return (-1);
 		}
 	}
-
+	free(name);
 	return (0);
 }
 
