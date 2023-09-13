@@ -25,7 +25,7 @@ int _unsetenv(const char *name)
 	{
 		if (strncmp(environ[x], name, len) == 0 && environ[x][len] == '=')
 		{
-			for (int y = x; environ[y] != NULL; y++)
+			for (y = x; environ[y] != NULL; y++)
 			{
 				environ[y] = environ[y + 1];
 			}

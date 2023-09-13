@@ -4,10 +4,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 extern char **environ;
 
-/** buffers for aliases */
+/** Macros for aliases */
 #define ALIASES 50
 #define ALIAS_NAME_LEN 50
 #define ALIAS_VALUE_LEN 200
@@ -19,7 +20,7 @@ struct Alias {
 };
 
 /** array to store aliases */
-struct Alias aliases[MAX_ALIASES];
+struct Alias aliases[ALIASES];
 int aliasCount = 0;
 
 
@@ -30,7 +31,12 @@ int _unsetenv(const char *name);
 
 /* function for variables */
 void variables(char *command);
+
 /* function for alias */
+void writeAliases(char *string);
+void aliasesPrint();
+void specific_aliases(char *alias_name[], int alias_name_count);
+void update_aliases(char *value, char *name);
 
 /* function for logical operators */
 

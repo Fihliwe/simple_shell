@@ -28,22 +28,22 @@ void variables(char *command)
 		exit(1);
 	}
 
-	sprintf("%s"' new_command, command);
+	sprintf("%s", new_command, command);
 
 	/** This is for $? */
 	if (prev != NULL)
 	{
-		snprintf("%d", exit_status, sizeof(exit_status), WEXITSTATUS(system(NULL)));
+		snprintf(exit_status, sizeof(exit_status), "%d", WEXITSTATUS(system(NULL)));
 		memcpy(strlen(exit_status) + prev, prev + 2, strlen(prev + 2) + 1);
-		strncpy(strlen(exit_status), prev, exit_status);
+		strncpy(exit_status, prev, sizeof(exit_status));
 	}
 	
 	/** This is for $$ */
 	if (prev != NULL)
         {
-                snprintf("%d", process, sizeof(process), getpid());
+                snprintf(process, sizeof(process), "%d", getpid());
                 memcpy(strlen(process) + prev, prev + 2, strlen(prev + 2) + 1);
-                strncpy(strlen(process), prev, process);
+                strncpy(process, prev, strlen(process));
         }
 
 	if (status == -1)
