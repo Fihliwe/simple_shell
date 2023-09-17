@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <sys/wait.h>
 
 extern char **environ;
 
@@ -12,6 +13,9 @@ extern char **environ;
 #define ALIASES 50
 #define ALIAS_NAME_LEN 50
 #define ALIAS_VALUE_LEN 200
+
+/** Macro for cd */
+#define CD_LENGTH 1024
 
 /** struc to store aliases */
 struct Alias {
@@ -38,10 +42,15 @@ void aliasesPrint();
 void specific_aliases(char *alias_name[], int alias_name_count);
 void update_aliases(char *value, char *name);
 
+/** Function for our own getline function */
+
 /* function for logical operators */
+void logic_op(char *command);
 
 /* function for commands seperator */
+int command_sep(char *command);
 
 /* function for builtin command (cd - change directory) */
+int change_dir(const char *change);
 
 #endif/* SHELL_H*/
