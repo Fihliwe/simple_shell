@@ -53,4 +53,7 @@ int command_sep(char *command);
 /* function for builtin command (cd - change directory) */
 int change_dir(const char *change);
 
+/** Function for exit function */
+void _exit(int stat);
+
 #endif/* SHELL_H*/
