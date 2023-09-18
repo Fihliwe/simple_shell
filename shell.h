@@ -33,6 +33,11 @@ char *_getenv(const char *name);
 int _setenv(const char *name, const char *value, int overwrite);
 int _unsetenv(const char *name);
 
+void read_command(char *command, size_t size);
+void show_prompt(void);
+void execute_command(const char *command);
+void s_print(const char *print function);
+
 /* function for variables */
 void variables(char *command);
 
