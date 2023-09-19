@@ -42,8 +42,6 @@ void aliasesPrint();
 void specific_aliases(char *alias_name[], int alias_name_count);
 void update_aliases(char *value, char *name);
 
-/** Function for our own getline function */
-
 /* function for logical operators */
 void logic_op(char *command);
 
