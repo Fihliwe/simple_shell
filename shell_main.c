@@ -1,16 +1,12 @@
 #include "shell.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
-#define MAX_INPUT_LENGTH 1024
 
 int main() {
-    char input[MAX_INPUT_LENGTH];
+    char input[INPUT_LENGTH];
     
     while (1) {
         if (fgets(input, sizeof(input), stdin) == NULL) {
-            perror("fgets");
+            /** perror("fgets"); */
             exit(EXIT_FAILURE);
         }
         

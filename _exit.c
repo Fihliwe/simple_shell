@@ -18,6 +18,6 @@ void _exit(int stat)
 	else
 	{
 		write(STDERR_FILENO, message, sizeof(message) - 1);
-		exit(1);
+		exit(98);
 	}
 }
