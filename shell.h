@@ -32,9 +32,17 @@ char *_getenv(const char *name);
 int _setenv(const char *name, const char *value, int overwrite);
 int _unsetenv(const char *name);
 
+/* function to send formatted output to the screen.*/
 void read_command(char *command, size_t size);
 void show_prompt(void);
 void execute_command(const char *command);
+<<<<<<< HEAD
+=======
+void s_print(const char *string);
+void custom_strtok(const char *str, char delimiter);
+void get_user_input(const char *prompt, char *user_input, size_t size);
+int main(void);
+>>>>>>> 5925138c940351585ef1d1ca73109f5c2e20f6eb
 
 /* function for variables */
 void variables(char *command);
