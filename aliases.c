@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- * writeAliases - Function to write to output
+ * write_aliases - Function to write to output
  * @string: string printed
  */
 
@@ -11,10 +11,10 @@ void write_aliases(char *string)
 }
 
 /**
- * aliasesPrint - function to print all aliases
+ * aliases_print - function to print all aliases
  */
 
-void aliases_print()
+void aliases_print(void)
 {
 	int x;
 	char print[256];
@@ -46,8 +46,8 @@ void specific_aliases(char *alias_name[], int alias_name_count)
 	char print[256];
 	int length;
 	int alias_count;
-
-        alias_count = 0;
+	
+	alias_count = 0;
 
 	for (x = 0; x < alias_name_count ; x++)
 	{
@@ -77,8 +77,8 @@ void update_aliases(char *value, char *name)
 	int x;
 	const char *message;
 	int alias_count;
-
-        alias_count = 0;
+	
+	alias_count = 0;
 	message = "Maximum number reached.\n";
 
 	for (x = 0; x < alias_count; x++)
