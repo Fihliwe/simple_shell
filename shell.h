@@ -6,6 +6,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/wait.h>
+#include <sys/types.h>
 
 extern char **environ;
 
@@ -23,6 +24,9 @@ extern char **environ;
 /** Macro for main function */
 #define INPUT_LENGTH 1024
 
+/** Macro for shell prompt */
+#define INPUT_SIZE 256
+
 /** struc to store aliases */
 struct Alias {
     char name[ALIAS_NAME_LEN];
@@ -32,11 +36,15 @@ struct Alias {
 /** array to store aliases */
 struct Alias aliases[ALIASES];
 
+/** shell prompt function */
+
+void shell_prompt(char *command);
 
 /* environment functions (enviro.c) */
 char *_getenv(const char *name);
 int _setenv(const char *name, const char *value, int overwrite);
 int _unsetenv(const char *name);
+<<<<<<< HEAD
 
 /* function to send formatted output to the screen.*/
 void _fork(char *buffer);
@@ -46,6 +54,8 @@ char s_print(char *argv);
 char *token_strtok(char *input);
 
 /* function for variables */
+=======
+>>>>>>> 831b457256a0def879e70f0fff2d3c0046ca7efd
 void variables(char *command);
 
 /* function for alias */
