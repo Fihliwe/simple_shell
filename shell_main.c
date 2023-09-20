@@ -1,42 +1,43 @@
 #include "shell.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-int main(void)
-{
-	char input[INPUT_LENGTH];
-	const char *dir = input + 3;
-	int result = change_dir(dir);
-	
-	while (1)
-	{
-		show_prompt();
-		get_user_input("", input, sizeof(input));
-		
-		if (strcmp(input, "exit") == 0)
-		{
-			_exit(0);
-		}
-		
-		else if (strncmp(input, "cd ", 3) == 0)
-		{
-			if (result != 0)
-			{
-				fprintf(stderr, "cd: Failed to change directory\n");
-			}
-			continue;
-		}
-		
-		else if (strncmp(input, "alias ", 6) == 0)
-		{
-			/** add the alias command */
-			continue;
-		}
-		
-		if (result == -1)
-		{
-			fprintf(stderr, "Command execution failed\n");
-		}
-	}
+#define MAX_INPUT_LENGTH 1024
 
-	return (0);
+int main() {
+    char input[MAX_INPUT_LENGTH];
+    
+    while (1) {
+        if (fgets(input, sizeof(input), stdin) == NULL) {
+            perror("fgets");
+            exit(EXIT_FAILURE);
+        }
+        
+        if (input[strlen(input) - 1] == '\n') {
+            input[strlen(input) - 1] = '\0';
+        }
+        
+        if (strcmp(input, "exit") == 0) {
+            _exit(0);
+        }
+        else if (strncmp(input, "cd", 2) == 0) {
+            char *dir = input + 2;
+            if (change_dir(dir) != 0) {
+                perror("cd");
+            }
+            continue;
+        }
+        else if (strncmp(input, "alias", 5) == 0) {
+        }
+        else {
+            int status = command_sep(input);
+            if (status != 0) {
+                printf("Command failed with exit code %d\n", status);
+            }
+        }
+    }
+    
+    return 0;
 }
 
