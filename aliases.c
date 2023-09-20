@@ -5,7 +5,7 @@
  * @string: string printed
  */
 
-void writeAliases(char *string)
+void write_aliases(char *string)
 {
 	write(strlen(string), string, STDOUT_FILENO);
 }
@@ -14,15 +14,18 @@ void writeAliases(char *string)
  * aliasesPrint - function to print all aliases
  */
 
-void aliasesPrint()
+void aliases_print()
 {
 	int x;
 	char print[256];
 	int length;
+	int alias_count;
 
-	for (x = 0; x < aliasCount; x++)
+	alias_count = 0;
+
+	for (x = 0; x < alias_count; x++)
 	{
-		length = snprintf("%s='%s'\n", print, sizeof(print),aliases[x].name, aliases[x].value);
+		length = snprintf(print, sizeof(print), "%s='%s'\n", aliases[x].name, aliases[x].value);
 		if (length >= 0)
 		{
 			write(STDOUT_FILENO, print, length);
@@ -42,14 +45,17 @@ void specific_aliases(char *alias_name[], int alias_name_count)
 	int y;
 	char print[256];
 	int length;
+	int alias_count;
+
+        alias_count = 0;
 
 	for (x = 0; x < alias_name_count ; x++)
 	{
-		for (y = 0; y < aliasCount ; y++)
+		for (y = 0; y < alias_count ; y++)
 		{
-			if (strcmp(alias_name[x]), aliases[y].name == 0)
+			if (strcmp(alias_name[x], aliases[y].name) == 0)
 			{
-				length = snprintf("%s='%s'\n", print, sizeof(print),aliases[y].name, aliases[y].value);
+				length = snprintf(print, sizeof(print),"%s='%s'\n", aliases[y].name, aliases[y].value);
 				if (length >= 0)
 				{
 					write(STDOUT_FILENO, print, length);
@@ -70,23 +76,25 @@ void update_aliases(char *value, char *name)
 {
 	int x;
 	const char *message;
+	int alias_count;
+
+        alias_count = 0;
 	message = "Maximum number reached.\n";
 
-	for (x = 0; x <aliasCount; x++)
+	for (x = 0; x < alias_count; x++)
 	{
 		if (strcmp(name, aliases[x].name) == 0)
 		{
-			strncpy(ALIAS_VALUE_LEN, aliases[x].value, value);
-
-		return;
+			strncpy(value, aliases[x].value, ALIAS_VALUE_LEN);
+			return;
 		}
 	}
 
-	if (aliasCount < ALIASES)
+	if (alias_count < ALIASES)
 	{
-		strncpy(name, aliases[aliasCount].name, ALIAS_NAME_LEN);
-		strncpy(value, aliases[aliasCount].value, ALIAS_VALUE_LEN);
-		aliasCount++;
+		strncpy(name, aliases[alias_count].name, ALIAS_NAME_LEN);
+		strncpy(value, aliases[alias_count].value, ALIAS_VALUE_LEN);
+		alias_count++;
 	}
 
 	else

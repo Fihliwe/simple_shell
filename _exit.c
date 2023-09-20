@@ -11,9 +11,9 @@ void _exit(int stat)
 
 	message = "Invalid input of _exit command";
 
-	if (stat => 0)
+	if (stat >= 0)
 	{
-		exit(status);
+		exit(stat);
 	}
 	else
 	{

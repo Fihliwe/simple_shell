@@ -25,7 +25,6 @@ struct Alias {
 
 /** array to store aliases */
 struct Alias aliases[ALIASES];
-int aliasCount = 0;
 
 
 /* environment functions (enviro.c) */
@@ -36,14 +35,13 @@ int _unsetenv(const char *name);
 void read_command(char *command, size_t size);
 void show_prompt(void);
 void execute_command(const char *command);
-void s_print(const char *print function);
 
 /* function for variables */
 void variables(char *command);
 
 /* function for alias */
-void writeAliases(char *string);
-void aliasesPrint();
+void write_aliases(char *string);
+void aliases_print();
 void specific_aliases(char *alias_name[], int alias_name_count);
 void update_aliases(char *value, char *name);
 

@@ -45,28 +45,3 @@ int _setenv(const char *name, const char *value, int overwrite)
 	}
 	return (0);
 }
-
-/**
- * main - to test output
- * Return: 0
- */
-
-int main(void)
-{
-	char *var;
-
-	var = getenv("Variable");
-
-	_setenv("Variable", "n_value", 1);
-
-	if (var)
-	{
-		printf("Variable = %s\n", var);
-	}
-
-	else
-	{
-		printf("Variable is not in the environment\n");
-	}
-	return (0);
-}

@@ -49,7 +49,7 @@ void variables(char *command)
 	if (status == -1)
 	{
 		perror("Failed");
-		exit(1);
+		exit(98);
 	}
 
 	free(new_command);
