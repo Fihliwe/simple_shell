@@ -8,33 +8,35 @@
  * Return: a point to array of strings, or NULL on failure
  */
 
-int main(void)
-void strtok(const char *str char  delimeter)
+void custom_strtok(const char *str, char delimiter)
 {
-        char command = my function;
+	int len = strlen(str);
+	char function[len + 1];
+	int j = 0;
 
-                char *function
-                char *delim = " ";
-                int len = strlen(str);
-                char function[len + 1];
-                int i, j;
-
-                function = strtok(command, delim);
-                for (i = 0; j = 0; <= len i++)
-                {
-                        if (str[i] == delimeter || str[i] == '\0')
-                                function[j] = '\0';
-                        if (j > 0)
-                        {
-                               s_print("function:%s\n", function)
-					j = 0;
-                        else
-                        {
-                                function[j] = str[i];
-                                function = strtok(NULL, delim);
-                                }
-                        }
-                return 0
+	for (int i = 0; i <= len; i++)
+	{
+		if (str[i] == delimiter || str[i] == '\0')
+		{
+			function[j] = '\0';
+			if (j > 0)
+			{
+				s_print("function: %s\n", function);
+			}
+			j = 0;
+		} else
+		{
+			function[j] = str[i];
+			j++;
 		}
+	}
+}
+int main(void)
+{
+	const char *command = "my shell function with arguments";
+	char delimiter = ' ';
 
+	custom_strtok(command, delimiter);
+
+	return (0);
 }

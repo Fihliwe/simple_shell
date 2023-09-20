@@ -1,11 +1,20 @@
 #include <shell.h>
+#include <unistd.h>
+#include <string.h>
 
 /*
  * file description for stdout uses the write function to creat s_print
  * general code to Print Integer in C language
+ * return 0
  */
 
-void s_print(const char *print function)
+
+int main(void)
 {
-        write(STDOUT_FILENO, print function, strlen(print function));
+	const char *string = "hello shell!";
+	size_t len = strlen(string);
+
+	write(1, string, len);
+
+	return (0);
 }
