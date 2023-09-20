@@ -9,12 +9,9 @@
  */
 
 
-int main(void)
+char s_print(char *argv)
 {
-	const char *string = "hello shell!";
-	size_t len = strlen(string);
-
-	write(1, string, len);
-
-	return (0);
+	size_t count = strlen(argv);
+	write(1, argv, count);
+	return argv;
 }

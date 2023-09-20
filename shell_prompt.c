@@ -7,14 +7,25 @@
  * print $$ when executing file ./shell$$
  */
 
-void show_prompt(void)
+void _fork(char *buffer)
 {
-	s_print("s_shell$$");
-}
+	buffer[strcpn(buffer, "\n") = '\0'];
+	if (strcmp(buffer, "exit") == 0)
+	{
+		s_print("wow\n");
 
-int main(void)
-{
-	show_prompt(void);
+		pid_t pid = fork();
 
-	return (0);
+		if (pid < 0)
+		{
+			fprintf(stderr, "fork error");
+		}
+		execev(buffer, buffer NULL);
+		fprintf(stderr, "command '%s' not workin\n" buffer);
+		exit(EXIT_FAILURE);
+	}
+	else {
+		int status;
+		waitpid(pi,d &status, 0);
+	}
 }

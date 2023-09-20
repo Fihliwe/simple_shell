@@ -11,28 +11,18 @@
  * which gets passed the text that will be used to prompt the user.
  */
 
-void show_prompt(void)
+void shell()
 {
-	s_print("s_shell$$ ");
-}
-void get_user_input(const char *prompt, char *user_input, size_t size)
-{
-	size_t input_len;
+	char buffer(BUFFER_SIZE);
 
-	 input_len = strlen(user_input);
-
-	s_print(prompt);
-	fgets(user_input, size, stdin);
-
-
-	if (input_len > 0 && user_input[input_len - 1] == '\n')
+	while(1)
 	{
-		user_input[input_len - 1] = '\0';
+		write(1, "my_shell", strlen);
+		char *input = input_getline();
+		strcpy(buffer,input);
+		token_strtok(input);
+
+		_fork(input);
+		free(input)
 	}
 }
-
-void execute_command(const char *command)
-{
-	s_print(command);
-}
-

@@ -8,36 +8,17 @@
  * Return: a point to array of strings, or NULL on failure
  */
 
-void custom_strtok(const char *str, char delimiter)
+char *token_strtok(char *input)
 {
-	int len = strlen(str);
-	char function[len + 1];
-	int j = 0;
+	char *str = input;
+	char *delim = " ";
+	char *token;
 
-	for (int i = 0; i <= len; i++)
+	token = stetok(str, delim);
+	while (token)
 	{
-		if (str[i] == delimiter || str[i] == '\0')
-		{
-			function[j] = '\0';
-			if (j > 0)
-			{
-				s_print("function: %s\n", function);
-			}
-			j = 0;
-		} else
-		{
-			function[j] = str[i];
-			j++;
-		}
+		s_print("%s", token);
+		token =strtok(NULL, delim);
 	}
-}
-
-int main(void)
-{
-	const char *command = "my shell function with arguments";
-	char delimiter = ' ';
-
-	custom_strtok(command, delimiter);
-
 	return (0);
 }

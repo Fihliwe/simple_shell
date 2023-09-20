@@ -14,6 +14,9 @@ extern char **environ;
 #define ALIAS_NAME_LEN 50
 #define ALIAS_VALUE_LEN 200
 
+/* buffer size*/
+#define BUFFER_SIZE 64
+
 /** Macro for cd */
 #define CD_LENGTH 1024
 
@@ -36,13 +39,11 @@ int _setenv(const char *name, const char *value, int overwrite);
 int _unsetenv(const char *name);
 
 /* function to send formatted output to the screen.*/
-void read_command(char *command, size_t size);
-void show_prompt(void);
-void execute_command(const char *command);
-void s_print(const char *string);
-void custom_strtok(const char *str, char delimiter);
-void get_user_input(const char *prompt, char *user_input, size_t size);
-int main(void);
+void _fork(char *buffer);
+void shell();
+char *input_getline();
+char s_print(char *argv);
+char *token_strtok(char *input);
 
 /* function for variables */
 void variables(char *command);
