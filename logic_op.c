@@ -47,10 +47,12 @@ void logic_op(char *command)
 			if (WEXITSTATUS(stat) == 0)
 			{
 				write(STDOUT_FILENO, success, strlen(success));
+				return (1);
 			}
 			else
 			{
 				write(STDOUT_FILENO, fail, strlen(fail));
+				return (0);
 			}
 		}
 	}
