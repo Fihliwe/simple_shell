@@ -40,7 +40,7 @@ int main(void)
 	{
 		show_prompt();
 		get_user_input("", command, sizeof(command));
-		execute_command(command);
+	execute_command(command);
 	}
 	return (0);
 }

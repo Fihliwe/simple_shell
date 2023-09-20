@@ -8,13 +8,15 @@
  * Return: 0 if successful
  */
 
+
 int main(void)
 {
-     printf("betty would be proud \n");
-     printf("my checks are perfectly fine \n");
-
-     if (true)
-     {
-           printf("I passed Betty test \n")
-		   return: 0
+	s_print("betty would be proud\n");
+	s_print("my checks are perfectly fine\n");
+	if (1)
+	{
+		s_print("I passed Betty test\n");
+		return (0);
+	}
+	return (0);
 }
