@@ -17,6 +17,9 @@ extern char **environ;
 /** Macro for cd */
 #define CD_LENGTH 1024
 
+/** Macro for main function */
+#define INPUT_LENGTH 1024
+
 /** struc to store aliases */
 struct Alias {
     char name[ALIAS_NAME_LEN];

@@ -17,9 +17,13 @@ void show_prompt(void)
 }
 void get_user_input(const char *prompt, char *user_input, size_t size)
 {
-	s_print("%s", prompt);
+	size_t input_len;
+
+	 input_len = strlen(user_input);
+
+	s_print(prompt);
 	fgets(user_input, size, stdin);
-	size_t input_len = strlen(user_input);
+
 
 	if (input_len > 0 && user_input[input_len - 1] == '\n')
 	{
@@ -29,19 +33,6 @@ void get_user_input(const char *prompt, char *user_input, size_t size)
 
 void execute_command(const char *command)
 {
-	s_print("Executing: %s\n", command);
-}
-
-int main(void)
-{
-	char command[MAX_COMMAND_LENGTH];
-
-	while (1)
-	{
-		show_prompt();
-		get_user_input("", command, sizeof(command));
-	execute_command(command);
-	}
-	return (0);
+	s_print(command);
 }
 
