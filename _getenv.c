@@ -1,32 +1,19 @@
 #include "shell.h"
-#include <stdio.h>
-#include <string.h>
 
 /**
- * _getenv -  function that gets an environment variable
- * @name: constant character
- * Return: NULL
- */
+ * _getenv - print variable global envirionment
+ * @env: variable global envirionment system
+ * Return: estatus_exit value;
+ **/
 
-char *_getenv(const char *name)
+void _getenv(char **env)
 {
-	size_t len;
-	char **env;
+	int x = 0;
 
-	len = strlen(name);
-
-	if (name == NULL || environ == NULL)
+	while (env[x] != NULL)
 	{
-		return (NULL);
+		write(STDOUT_FILENO, env[x], strlen(env[x]));
+		write(STDOUT_FILENO, "\n", 1);
+		x++;
 	}
-
-	for (env = environ; *env != NULL; env++)
-	{
-		if (strncmp(*env, name, len) == 0 && (*env)[len] == '=')
-		{
-			return (*env + len + 1);
-		}
-	}
-
-	return (NULL);
 }

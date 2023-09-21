@@ -1,39 +1,25 @@
 #include "shell.h"
-
-
-int main() {
-    char input[INPUT_LENGTH];
-    
-    while (1) {
-        if (fgets(input, sizeof(input), stdin) == NULL) {
-            /** perror("fgets"); */
-            exit(EXIT_FAILURE);
-        }
-        
-        if (input[strlen(input) - 1] == '\n') {
-            input[strlen(input) - 1] = '\0';
-        }
-        
-        if (strcmp(input, "exit") == 0) {
-            _exit(0);
-        }
-        else if (strncmp(input, "cd", 2) == 0) {
-            char *dir = input + 2;
-            if (change_dir(dir) != 0) {
-                perror("cd");
-            }
-            continue;
-        }
-        else if (strncmp(input, "alias", 5) == 0) {
-        }
-        else {
-            int status = command_sep(input);
-            if (status != 0) {
-                printf("Command failed with exit code %d\n", status);
-            }
-        }
-    }
-    
-    return 0;
+/**
+* main - main entry point
+* @ac: to get number of argument
+* @av: to get argument value
+* @env: to get environment value
+* Return: status
+*/
+int main(int ac, char *av[], char **env)
+{
+	int count = 1;
+	int stat = 0;
+	(void)ac;
+	
+	if (ac > 1)
+	{
+		char err_msg[100];
+		sprintf(err_msg, "%s: 0: No file or directory %s\n", av[1], av[1]);
+		write(2, err_msg, strlen(err_msg));
+		return (0);
+	}
+	stat = shell_prompt(av, count, env);
+	return (stat);
 }
 

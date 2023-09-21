@@ -1,47 +1,37 @@
 #include "shell.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
 /**
- * _setenv -  Function to change or add an environment variable.
- * @name: constant character
- * @value: constant character
- * @overwrite: looped integer value
- * Return: -1 when updating, -1 when adding, 0 if success
- */
+ * _setenv - variable enviriomment to be gotten
+ * @name: name the variable envirionment
+ * @env: environment variable
+ * Return: char value envirionment
+ **/
 
-int _setenv(const char *name, const char *value, int overwrite)
+char *_setenv(char *name, char **env)
 {
-	char *exists;
-	char *n_env;
+	char *tok1 = NULL, *tok2 = NULL;
+	char *enviro_name = NULL, *curr_enviro = NULL;
+	int i = 0;
 
-	exists = getenv(name);
+	enviro_name = _strdup(name);
 
-	if (exists)
+	while (env[i] && env)
 	{
-		if (overwrite)
+		curr_enviro = NULL;
+		tok2 = NULL;
+		curr_enviro = _strdup(env[i]);
+		tok1 = strtok(curr_enviro, "=");
+		tok2 = _strdup(strtok(NULL, "="));
+		if (_strcmp(enviro_name, tok1) == 0)
 		{
-			n_env = (char *)malloc(strlen(name) + strlen(value) + 2);
-			if (!n_env)
-			{
-				return (-1);
-			}
-			sprintf("%s=%s", n_env, name, value);
-
-			if (putenv(n_env) != 0)
-			{
-				return (-1);
-			}
+			free(curr_enviro);
+			free(enviro_name);
+			return (tok2);
 		}
+		free(curr_enviro);
+		free(tok2);
+		i++;
 	}
-
-	else
-	{
-		if (setenv(name, value, 1) != 0)
-		{
-			return (-1);
-		}
-	}
-	return (0);
+	free(enviro_name);
+	return (NULL);
 }

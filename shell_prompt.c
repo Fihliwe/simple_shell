@@ -1,43 +1,71 @@
-#include "shel.h"
+#include "shell.h"
 
 /**
- * shell_prompt - function for entry point
- * @instruction: character string
- */
+* shell_prompt - reads the command line a through getline and determine
+* the mode either interactive or non-interactive from the command line.
+* @av: Pointer to arrays of string
+* @counter_exe: command execution counter.
+* @env: Enviroment variable.
+* Return: status value.
+**/
 
-void shell_prompt(char *instruction)
+int shell_prompt(char *av[], int counter_exe, char **env)
 {
-	pid_t process_id;
-	char *argument[];
-	int stat;
-
-	process_id = fork();
-	argument = {instruction, NULL};
-
-	if (process_id == -1)
+	int interactive = isatty(STDIN_FILENO), p_status = 0, i = 0, read = 0;
+	size_t length = 0;
+	char *line = NULL, *arguments[32], *tok = NULL;
+	
+	while (1)
 	{
-		perror("error");
-	}
-
-	else if (process_id == 0)
-	{
-		execve(instruction, agrument, NULL);
-		perror("Execve error");
-		_exit(EXIT_FAILURE);
-	}
-
-	else
-	{
-		waitpid(process_id, &stat, 0);
-
-		if (WIFEXITED(stat) && WEXITSTATUS(stat) == EXIT_SUCCESS)
 		{
-			write(STDOUT_FILENO, "command executed\n", 30);
+			if (interactive)
+			{
+				write(STDIN_FILENO, "$ ", 3);
+			}
 		}
-
+		
+		read = getline(&line, &length, stdin);
+		
+		if (read == EOF)
+		{
+			if (interactive)
+			{
+				write(STDIN_FILENO, "\n", 1);
+				free(line);
+			}
+			break;
+		}
+		
+		else if (_strncmp(line, "exit\n", 4) == 0)
+		{
+			free(line);
+			break;
+		}
+		
 		else
 		{
-			write(STDOUT_FILENO, "command failed\n", 25);
+			if (_strncmp(line, "env\n", 3) == 0)
+			{
+				_getenv(env);
+			}
+				
+			
+			else if (read > 1)
+			{
+				tok = strtok(line, " \t\r\n\v\f"), arguments[0] = av[0];
+				for (i = 1; i < 32 && tok != NULL; i++)
+				{
+					arguments[i] = tok, tok = strtok(NULL, " \t\r\n\v\f");
+					arguments[i] = NULL;
+					
+					if (arguments[1])
+					{
+						p_status = env_command(arguments, counter_exe, env);
+					}
+				}
+				counter_exe++;
+			}
 		}
 	}
+	return (p_status);
 }
