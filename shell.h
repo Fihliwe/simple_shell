@@ -2,106 +2,134 @@
 #define SHELL_H
 
 #include <stdio.h>
-#include <sys/types.h>
-#include <stdlib.h>
 #include <unistd.h>
-#include <stddef.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <sys/stat.h>
-#include <fcntl.h>
 #include <string.h>
-#include <errno.h>
-/** functions for environent */
-int shell_prompt(char *av[], int counter_exe, char **env);
-int env_command(char *av[], int counter_exe, char **env);
-char *name_file(char *full_path, char *file_name);
-void _getenv(char **env);
+#include <stdlib.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <sys/wait.h>
+#include <fcntl.h>
+#include <signal.h>
 
-/** functions for custom string functions */
-char *_strdup(char *str);
-char *_strcat(char *dest, char *src);
-char *_strcpy(char *dest, char *src);
-char *_setenv(char *name, char **env);
-int _strcmp(char *s1, char *s2);
-int _strncmp(const char *s1, const char *s2, size_t n);
-int _strlen(const char *s);
+/**
+ * struct list - struct
+ * @env: evirument value
+ * @next: pointer to next node
+ */
+typedef struct list
+{
+	char *env;
+	struct list *next;
+} node;
 
-/** functions for memory allocation */
-char *mem_set(char *s, char a, unsigned int n);
-void *mem_alloc(unsigned int memn, int size);
+/**
+ * struct all - struct
+ * @envs: pointer to env array
+ * @args: pointer to array of pointers of args
+ * @env: pointer to head of env list
+ * @count: the number that the
+ * @s: the string that stores input
+ * @status: last exit stat
+ * @seq: seq of comands
+ * @ali: array of alias
+ * @name: name of the file
+ * @com: name of the comand
+ * @input: input in non-interactive mod
+ * @fd: file descreptor if any
+ */
+typedef struct all
+{
+	char **envs;
+	char ***args;
+	node *env;
+	int count;
+	char *s;
+	int status;
+	char seq[10];
+	char **ali;
+	char *name;
+	char *com;
+	char *input;
+	int fd;
+} all_t;
 
-#endif
 
-<<<<<<< HEAD
-=======
-extern char **environ;
 
-/** Macros for aliases */
-#define ALIASES 50
-#define ALIAS_NAME_LEN 50
-#define ALIAS_VALUE_LEN 200
+/** function for different modes */
+void inter_mode(all_t *a);
+void non_inter_mode(all_t *a);
+void argument_loop(all_t *a);
+char *_path_(char *PATH, char *s);
+int _getline_(char **s, int *l, int stream);
 
-/* buffer size*/
-#define BUFFER_SIZE 64
 
-/** Macro for cd */
-#define CD_LENGTH 1024
+/** function for environment variables */
+void f_enviro(node *env_head);
+node *b_enviro(char **env);
+int enviro_comp(char *env, char *s);
+int _enviro_(char *var);
+int p_enviro(node *env);
+int a_node(node **head, char *env_value);
+char *enviro_val(node *env, char *name);
+node *g_node(node *env, char *name);
+void s_enviro(node *env, char *value, char *name);
+int l_array(node *env, char ***envs);
 
-/** Macro for main function */
-#define INPUT_LENGTH 1024
 
-/** Macro for shell prompt */
-#define INPUT_SIZE 256
+/** cd functions */
+int change_dir(char *dir, all_t *a);
+void change_dir_err(char *dir, all_t *a);
 
-/** struc to store aliases */
-struct Alias {
-    char name[ALIAS_NAME_LEN];
-    char value[ALIAS_VALUE_LEN];
-};
 
-/** array to store aliases */
-struct Alias aliases[ALIASES];
+/** alias.c */
+int alias(node **env, char **arg, char ***ali);
+char *alias_value(char **ali, char *name);
+int put_alias(char *new_ali, char ***ali);
+char *g_alias(char *name, char **ali);
+int free_array(char **ar);
+char *b_alias(char *ali, char *val);
+void p_alias(char *ali);
 
-/** shell prompt function */
 
-void shell_prompt(char *command);
+/** strtok funtions */
+char ***_strtok(char *s, char seq[10]);
+char *_strtok1(char *s, int *k, char dilm);
+char *get_next_arg(char *s, int *k);
+int *arg_num(char *s, char seq[10]);
+int free_arg(char ***ar);
 
-/* environment functions (enviro.c) */
-char *_getenv(const char *name);
-int _setenv(const char *name, const char *value, int overwrite);
-int _unsetenv(const char *name);
-<<<<<<< HEAD
 
-/* function to send formatted output to the screen.*/
-void _fork(char *buffer);
-void shell();
-char *input_getline();
-char s_print(char *argv);
-char *token_strtok(char *input);
+/**  built in functions */
+int _setenv(node **env, char *name, char *value);
+int _unsetenv(char *env_name, node **env);
+int built_exit(char **arg, all_t *a);
+int _exit_(char *code, all_t *a);
 
-/* function for variables */
-=======
->>>>>>> 831b457256a0def879e70f0fff2d3c0046ca7efd
-void variables(char *command);
 
-/* function for alias */
-void write_aliases(char *string);
-void aliases_print();
-void specific_aliases(char *alias_name[], int alias_name_count);
-void update_aliases(char *value, char *name);
+/** errors.c */
+void com_error(char *name, int n, char *com);
+void f_error(all_t *a, char *file);
 
-/* function for logical operators */
-void logic_op(char *command);
 
-/* function for commands seperator */
-int command_sep(char *command);
+/** var  functions */
+void _variable(char **arg, node *env, char **ali, int n);
+int _pid_rep(char **arg, int index);
+int _exit_rep(char **arg, int n, int index);
+int _env_rep(char **arg, node *env, int index);
 
-/* function for builtin command (cd - change directory) */
-int change_dir(const char *change);
 
-/** Function for exit function */
-void _exit(int stat);
+/** custom functions */
+int _empty(char *s);
+char *_concat(char *s1, char *s2);
+char *custom_strdup(char *str);
+int custom_len(char *s);
+int custom_strcmp(char *s1, char *s2);
+void n_string(int n, char *s);
+int count_word(char *s);
+char *custom_memcpy(char *dest, char *src, unsigned int n);
+void *custom_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
+void _free(all_t *a);
 
-#endif/* SHELL_H*/
->>>>>>> 4b7795b8f9da43b6750581b6a46872b481ea8b7e
+
+
+#endif 

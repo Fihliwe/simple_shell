@@ -1,37 +1,38 @@
 #include "shell.h"
 
 /**
- * _setenv - variable enviriomment to be gotten
- * @name: name the variable envirionment
- * @env: environment variable
- * Return: char value envirionment
- **/
-
-char *_setenv(char *name, char **env)
+ * _setenv - set a new env
+ *
+ * @env: pointer to the head of struct
+ * @name: name of env
+ * @value: value of env
+ *
+ * Return: always 1
+ */
+int _setenv(node **env, char *name, char *value)
 {
-	char *tok1 = NULL, *tok2 = NULL;
-	char *enviro_name = NULL, *curr_enviro = NULL;
-	int i = 0;
+	node *tmp = *env;
+	char *string, *string1;
 
-	enviro_name = _strdup(name);
-
-	while (env[i] && env)
+	if (!name || _enviro_(name) || !value)
 	{
-		curr_enviro = NULL;
-		tok2 = NULL;
-		curr_enviro = _strdup(env[i]);
-		tok1 = strtok(curr_enviro, "=");
-		tok2 = _strdup(strtok(NULL, "="));
-		if (_strcmp(enviro_name, tok1) == 0)
-		{
-			free(curr_enviro);
-			free(enviro_name);
-			return (tok2);
-		}
-		free(curr_enviro);
-		free(tok2);
-		i++;
+		return (0);
 	}
-	free(enviro_name);
-	return (NULL);
+
+	string = _concat(name, "=");
+	string1 = _concat(string, value);
+	free(string);
+	while (tmp)
+	{
+		if (enviro_comp(tmp->env, name))
+		{
+			free(tmp->env);
+			tmp->env = string1;
+			return (1);
+		}
+		tmp = tmp->next;
+	}
+	a_node(env, string1);
+	free(string1);
+	return (1);
 }
