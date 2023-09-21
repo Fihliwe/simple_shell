@@ -9,7 +9,33 @@
 * Return: status value.
 **/
 
+<<<<<<< HEAD
 int shell_prompt(char *av[], int counter_exe, char **env)
+=======
+<<<<<<< HEAD
+void _fork(char *buffer)
+{
+	buffer[strcpn(buffer, "\n") = '\0'];
+	if (strcmp(buffer, "exit") == 0)
+	{
+		s_print("wow\n");
+
+		pid_t pid = fork();
+
+		if (pid < 0)
+		{
+			fprintf(stderr, "fork error");
+		}
+		execev(buffer, buffer NULL);
+		fprintf(stderr, "command '%s' not workin\n" buffer);
+		exit(EXIT_FAILURE);
+	}
+	else {
+		int status;
+		waitpid(pi,d &status, 0);
+=======
+void shell_prompt(char *instruction)
+>>>>>>> 4b7795b8f9da43b6750581b6a46872b481ea8b7e
 {
 	int interactive = isatty(STDIN_FILENO), p_status = 0, i = 0, read = 0;
 	size_t length = 0;
@@ -66,6 +92,7 @@ int shell_prompt(char *av[], int counter_exe, char **env)
 				counter_exe++;
 			}
 		}
+>>>>>>> 831b457256a0def879e70f0fff2d3c0046ca7efd
 	}
 	return (p_status);
 }
